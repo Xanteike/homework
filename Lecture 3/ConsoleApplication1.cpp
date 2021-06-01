@@ -7,7 +7,7 @@ void Task1()
 {
 	int abc = a * (b + (c / d));
 	static_cast<float> (abc);
-	cout << "Expression:  a * (b + (c / d))" << endl << "Write 4 variables after each press Enter: ";
+	cout << "Expression:  a * (b + (c / d))" << endl << "Write 4 variables after each press Enter: " << endl;
 	cin >> a >> b >> c >> d;
 	cout << "a = " << a << " b = " << b << " c = " << c << " d = " << d << endl;
 	cout << "Result: " << abc << endl;
