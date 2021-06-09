@@ -1,5 +1,4 @@
 #include <iostream>
-#include <vector>
 
 using namespace std;
 
@@ -79,50 +78,56 @@ void Task3()
 // сместить все элементы массива на n позиций.
 //
 
-// С отрицательными числами краш, не знаю, как сделать :(
+// С отрицательными числами не знаю как сделать :(
 const int size_array = 5;
 void Task4()
 {
+	int temp1[size_array] { 1, 2, 3, 4, 5};
+	int temp2[size_array]; 
+	int a = 0;
 	int write;
-	cout << "Enter a number to move the array" << endl << "Your nubmer: ";
+	cout << "Please enter number to shift: ";
 	cin >> write;
-	int arrayA[size_array] = { 1, 2, 3, 4, 5 };
-	if (write > 5 || write < 0)
+	if (write > size_array)
 	{
-		cout << " Error, please enter the shift element." << endl;
-		return Task4();
+		cout << "ERROR, please enter the shift element." << endl;
+		return Task4_v2();
 	}
-	rotate(arrayA, &arrayA[size_array] - write, &arrayA[size_array]);
-	cout << "Result: ";
-	for (auto size_array : arrayA)
+	if (write >= 0)
 	{
-		cout << size_array << " ";
 
-	}
-}
-
-/*
-Вариант №2, но сдвигает только 1 число, так же не двигается в минус :(
-
-void Task4_v2()
-{
-	int n;
-	cout << "Please write number: ";
-	cin >> n;
-	int arrayA[size_array] = { 1, 2, 3, 4, 5 };
-	int temp = arrayA[size_array - 1];
-		for (int i = size_array - 2; i >= 0; i--)
+		for (int i = 0; i < size_array; i++)
 		{
-			arrayA[i + 1] = arrayA[i];
+			if (write >= size_array)
+			{
+				write = 0;
+			}
+			temp2[a++] = temp1[write++];
 		}
-	arrayA[0] = temp;
-	cout << " Result: ";
+	}
+	else if (write < 0)
+	{
+		for (int i = 0; i < size_array; i++)
+		{
+			if (((size_array - i) + write) < 0)
+			{
+				write = ;
+			}
+			temp2[a++] = temp1[(size_array - i) + write];
+		}
+	}
+
 	for (int i = 0; i < size_array; i++)
 	{
-		cout << arrayA[i] << " ";
+		cout << temp1[i] << " ";
+	}
+	cout << endl;
+	for (int i = 0; i < size_array; i++)
+	{
+		cout << temp2[i] << " ";
 	}
 }
-*/
+
 // -------------------------------------------------Task5-----------------------------------------------------------
 //
 // Написать функцию, которой передается не пустой
@@ -138,7 +143,7 @@ void Task4_v2()
 
 const int size_5_array = 2;
 void Task5_v1()
-{	
+{
 	int left_array[size_5_array];
 	int right_array[size_5_array];
 	cout << "Enter the array values" << endl;
