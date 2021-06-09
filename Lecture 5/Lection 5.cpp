@@ -111,7 +111,7 @@ void Task4()
 		{
 			if (((size_array - i) + write) < 0)
 			{
-				write = ;
+				write = i - 1;
 			}
 			temp2[a++] = temp1[(size_array - i) + write];
 		}
