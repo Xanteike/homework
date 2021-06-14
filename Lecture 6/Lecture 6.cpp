@@ -1,7 +1,7 @@
 #include <iostream>
 #include <fstream>
 #include <filesystem>
-#include "string"
+#include <string>
 using namespace std;
 
 //
@@ -37,6 +37,7 @@ void Task1()
     }
 
     delete[] ptrArr;
+    ptrArr = nullptr;
 }
 
 //
@@ -48,18 +49,24 @@ void Task1()
 const size_t SIZE = 3;
 void Task2()
 {
-    int array[SIZE][SIZE];
-
-    cout << "New random array" << endl;
-    for (int i = 0; i < SIZE; i++)
-    {
-        for (int j = 0; j < SIZE; j++)
+        int** array;
+        const size_t SIZE = 3;
+        int write;
+        cin >> write;
+        array = new int*[write];
+        
+        cout << "New random array" << endl;
+        for (int i = 0; i < SIZE; i++)
         {
-            array[i][j] = rand() % 2 + 1;
-            cout << array[i][j] << " ";
+            array[i] = new int[SIZE];
+
+            for (int j = 0; j < SIZE; j++)
+            {
+                array[i][j] = rand() % 2 + 1;
+                cout << array[i][j] << " ";
+            }
+            cout << endl;
         }
-        cout << endl;
-    }
 }
 
 //
@@ -73,9 +80,8 @@ int array_txt[size_txt];
 string name1, name2, name_4;
 string name3 = name_4 + ".txt";
 
-void Task3_1()
+void Task3()
 {
-
     cout << "Enter name for first txt file: ";
     cin >> name1;
     ofstream fout(name1 + ".txt");
@@ -89,13 +95,9 @@ void Task3_1()
     }
     fout.close();
 
-}
-
-void Task3_2()
-{
     cout << "Enter name for second txt file: ";
     cin >> name2;
-    ofstream fout(name2 + ".txt");
+    ofstream fout2(name2 + ".txt");
     cout << "File name:" << name2 << ".txt" << endl;
     fout << "Array to 50 nubmers" << endl;
     for (int i = 0; i < size_txt; i++)
@@ -103,16 +105,11 @@ void Task3_2()
         array_txt[i] = rand();
         fout << array_txt[i] << " ";
         fout << endl;
-        
+
     }
     fout.close();
 }
 
-void Task3()
-{
-    Task3_1();
-    Task3_2();
-}
 
 //
 // Написать функцию, «склеивающую» эти файлы в
@@ -143,7 +140,7 @@ void Task4()
 //
 void Task5()
 {
-    ifstream out(name_4 + ".txt");
+    ifstream out(name3);
     string write;
     cout << "Enter a word / character to search for: ";
     cin >> write;
