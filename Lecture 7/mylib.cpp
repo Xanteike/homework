@@ -1,4 +1,4 @@
-﻿#include "mylib.h"
+#include "mylib.h"
 
 
 //
@@ -52,6 +52,15 @@ namespace MyLib
         std::cout << "Positive numbers = " << b << std::endl;
         std::cout << "Negative numbers = " << a << std::endl;
     }
+}
+
+void Task1()
+{
+    const size_t size_array = 5;
+    float array[size_array];
+    MyLib::cinArray(array, size_array);
+    MyLib::printArray(array, size_array);
+    MyLib::countingArray(array, size_array);
 }
 
 //
