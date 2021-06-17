@@ -54,6 +54,15 @@ namespace MyLib
     }
 }
 
+void Task1()
+{
+    const size_t size_array = 5;
+    float array[size_array];
+    MyLib::cinArray(array, size_array);
+    MyLib::printArray(array, size_array);
+    MyLib::countingArray(array, size_array);
+}
+
 //
 // Описать макрокоманду (через директиву define),
 // проверяющую, входит ли переданное ей число(введенное с
