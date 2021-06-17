@@ -10,6 +10,7 @@ namespace MyLib
 	void cinArray(float arr[], const int size);
 	void countingArray(float arr[], const int size);
 }
+void Task1();
 // --------------------------------------------------Task2-----------------------------------------
 void Task2();
 // --------------------------------------------------Task3-----------------------------------------
