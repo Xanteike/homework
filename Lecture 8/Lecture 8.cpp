@@ -91,22 +91,23 @@ void deinitField(Field& r)
 
 void printField(const Field& r)
 {
-	cout << endl << "     ";
+	cout << endl << "       ";
 	for (size_t x = 0; x < r.SIZE; x++)
 	{
-		cout << x + 1 << "   ";
+		cout << x + 1 << "     ";
 	}
 	cout << endl;
 	for (size_t y = 0; y < r.SIZE; y++)
 	{
-		cout << " " << y + 1 << " | ";
+		cout << "     -----------------" << endl;
+		cout << " " << y + 1 << "  |  ";
 		for (size_t x = 0; x < r.SIZE; x++)
 		{
-			cout << static_cast<char> (r.ppField[y][x]) << " | ";
+			cout << static_cast<char> (r.ppField[y][x]) << "  |  ";
 		}
 		cout << endl;
 	}
-
+	cout << "     -----------------" << endl;
 	cout << endl << "Human: " << static_cast<char>(r.human) << endl;
 	cout << "   AI: " << static_cast<char>(r.ai) << endl << endl;
 }
