@@ -142,6 +142,7 @@ Coord getHumanCoord(Field& f)
 
 Coord getAICoord(Field& f)
 {
+
 	for (size_t y = 0; y < f.SIZE; y++)
 	{
 		for (size_t x = 0; x < f.SIZE; x++)
@@ -318,12 +319,12 @@ void congrats(Progress progress)
 	if (progress == WON_HUMAN)
 	{
 		cout << "YOU WIN! :)" << endl
-			 << "HUMAN WIN" << endl;
+			<< "HUMAN WIN" << endl;
 	}
 	else if (progress == WON_AI)
 	{
 		cout << "YOU LOSE... :(" << endl
-			 << "AI WIN" << endl;
+			<< "AI WIN" << endl;
 	}
 	else if (progress == DRAW)
 	{
