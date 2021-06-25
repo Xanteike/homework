@@ -3,6 +3,7 @@
 #include <random>
 #include <stdlib.h>
 #include <chrono>
+#include <Windows.h>
 
 using namespace std;
 
@@ -132,7 +133,7 @@ Coord getHumanCoord(Field& f)
 		{
 			cerr << "Error! This cell is busy" << endl << endl;
 		}
-
+		Sleep(200);
 	} while (c.x == 0 || c.y == 0 || c.x <= 0 || c.y <= 0 || c.x > 3 || c.y > 3 || f.ppField[c.y - 1][c.x - 1] != Cell::EMPTY);
 
 	c.x--;
@@ -359,7 +360,7 @@ int main()
 		printField(f);
 
 		f.progress = getWon(f);
-
+		Sleep(400);
 	} while (f.progress == Progress::IN_PROGRESS);
 
 	congrats(f.progress);
