@@ -6,7 +6,7 @@
 
 using namespace std;
 
-enum Cell
+const enum class Cell : char
 {
 	CROSS = 'X',
 	ZERO = 'O',
@@ -19,7 +19,7 @@ struct Coord
 	size_t y;
 };
 
-enum Progress
+const enum class Progress : int
 {
 	IN_PROGRESS,
 	WON_HUMAN,
@@ -32,10 +32,10 @@ struct Field
 {
 	Cell** ppField = nullptr;
 	const size_t SIZE = 3;
-	Cell human = EMPTY;
-	Cell ai = EMPTY;
+	Cell human = Cell::EMPTY;
+	Cell ai = Cell::EMPTY;
 	size_t turn = 0;
-	Progress progress = IN_PROGRESS;
+	Progress progress = Progress::IN_PROGRESS;
 };
 #pragma pack(pop)
 
@@ -61,20 +61,20 @@ void initField(Field& r)
 	{
 		for (size_t x = 0; x < r.SIZE; x++)
 		{
-			r.ppField[y][x] = EMPTY;
+			r.ppField[y][x] = Cell::EMPTY;
 		}
 	}
 
 	if (getRandomNum(0, 1000) > 500)
 	{
-		r.human = CROSS;
-		r.ai = ZERO;
+		r.human = Cell::CROSS;
+		r.ai = Cell::ZERO;
 		r.turn = 0;
 	}
 	else
 	{
-		r.human = ZERO;
-		r.ai = CROSS;
+		r.human = Cell::ZERO;
+		r.ai = Cell::CROSS;
 		r.turn = 1;
 	}
 }
@@ -99,7 +99,7 @@ void printField(const Field& r)
 	cout << endl;
 	for (size_t y = 0; y < r.SIZE; y++)
 	{
-		cout << "     -----------------" << endl;
+		cout << "     ----- ----- -----" << endl;
 		cout << " " << y + 1 << "  |  ";
 		for (size_t x = 0; x < r.SIZE; x++)
 		{
@@ -107,7 +107,7 @@ void printField(const Field& r)
 		}
 		cout << endl;
 	}
-	cout << "     -----------------" << endl;
+	cout << "     ----- ----- -----" << endl;
 	cout << endl << "Human: " << static_cast<char>(r.human) << endl;
 	cout << "   AI: " << static_cast<char>(r.ai) << endl << endl;
 }
@@ -116,6 +116,7 @@ void inline clearScr()
 {
 	system("cls");
 }
+
 
 Coord getHumanCoord(Field& f)
 {
@@ -127,12 +128,12 @@ Coord getHumanCoord(Field& f)
 		cout << "Enter y: ";
 		cin >> c.y;
 
-		if (f.ppField[c.y - 1][c.x - 1] != EMPTY)
+		if (c.x == 0 || c.y == 0  || c.x <= 0 || c.y <= 0 || c.x > 3 || c.y > 3 || f.ppField[c.y - 1][c.x - 1] != Cell::EMPTY)
 		{
 			cerr << "Error! This cell is busy" << endl << endl;
 		}
 
-	} while (c.x == 0 || c.y == 0 || c.x > 3 || c.y > 3 || f.ppField[c.y - 1][c.x - 1] != EMPTY);
+	} while (c.x == 0 || c.y == 0 || c.x <= 0 || c.y <= 0 || c.x > 3 || c.y > 3 || f.ppField[c.y - 1][c.x - 1] != Cell::EMPTY);
 
 	c.x--;
 	c.y--;
@@ -142,20 +143,22 @@ Coord getHumanCoord(Field& f)
 
 Coord getAICoord(Field& f)
 {
+	Coord arr[4] = { 0 };
+	size_t num = 0;
 
 	for (size_t y = 0; y < f.SIZE; y++)
 	{
 		for (size_t x = 0; x < f.SIZE; x++)
 		{
-			if (f.ppField[y][x] == EMPTY)
+			if (f.ppField[y][x] == Cell::EMPTY)
 			{
 				f.ppField[y][x] = f.ai;
-				if (getWon(f) == WON_AI)
+				if (getWon(f) == Progress::WON_AI)
 				{
-					f.ppField[y][x] = EMPTY;
+					f.ppField[y][x] = Cell::EMPTY;
 					return { y, x };
 				}
-				f.ppField[y][x] = EMPTY;
+				f.ppField[y][x] = Cell::EMPTY;
 			}
 		}
 	}
@@ -164,39 +167,39 @@ Coord getAICoord(Field& f)
 	{
 		for (size_t x = 0; x < f.SIZE; x++)
 		{
-			if (f.ppField[y][x] == EMPTY)
+			if (f.ppField[y][x] == Cell::EMPTY)
 			{
 				f.ppField[y][x] = f.human;
-				if (getWon(f) == WON_HUMAN)
+				if (getWon(f) == Progress::WON_HUMAN)
 				{
-					f.ppField[y][x] = EMPTY;
+					f.ppField[y][x] = Cell::EMPTY;
 					return { y, x };
 				}
-				f.ppField[y][x] = EMPTY;
+				f.ppField[y][x] = Cell::EMPTY;
 			}
 		}
 	}
 
-	if (f.ppField[1][1] == EMPTY)
+
+
+	if (f.ppField[1][1] == Cell::EMPTY)
 	{
 		return { 1, 1 };
 	}
 
-	Coord arr[4] = { 0 };
-	size_t num = 0;
-	if (f.ppField[0][0] == EMPTY)
+	if (f.ppField[0][0] == Cell::EMPTY)
 	{
 		arr[num++] = { 0, 0 };
 	}
-	if (f.ppField[2][2] == EMPTY)
+	if (f.ppField[2][2] == Cell::EMPTY)
 	{
 		arr[num++] = { 2, 2 };
 	}
-	if (f.ppField[0][2] == EMPTY)
+	if (f.ppField[0][2] == Cell::EMPTY)
 	{
 		arr[num++] = { 0, 2 };
 	}
-	if (f.ppField[2][0] == EMPTY)
+	if (f.ppField[2][0] == Cell::EMPTY)
 	{
 		arr[num++] = { 2, 0 };
 	}
@@ -207,20 +210,19 @@ Coord getAICoord(Field& f)
 		return arr[index];
 	}
 
-	num = 0;
-	if (f.ppField[0][1] == EMPTY)
+	if (f.ppField[0][1] == Cell::EMPTY)
 	{
 		arr[num++] = { 0, 1 };
 	}
-	if (f.ppField[2][1] == EMPTY)
+	if (f.ppField[2][1] == Cell::EMPTY)
 	{
 		arr[num++] = { 2, 1 };
 	}
-	if (f.ppField[1][0] == EMPTY)
+	if (f.ppField[1][0] == Cell::EMPTY)
 	{
 		arr[num++] = { 1, 0 };
 	}
-	if (f.ppField[1][2] == EMPTY)
+	if (f.ppField[1][2] == Cell::EMPTY)
 	{
 		arr[num++] = { 1, 2 };
 	}
@@ -230,6 +232,7 @@ Coord getAICoord(Field& f)
 		const size_t index = getRandomNum(0, 1000) % num;
 		return arr[index];
 	}
+
 	return { 1, 1 };
 }
 
@@ -241,11 +244,11 @@ Progress getWon(const Field& f)
 		{
 			if (f.ppField[y][0] == f.ai)
 			{
-				return WON_AI;
+				return Progress::WON_AI;
 			}
 			else if (f.ppField[y][0] == f.human)
 			{
-				return WON_HUMAN;
+				return Progress::WON_HUMAN;
 			}
 		}
 	}
@@ -256,11 +259,11 @@ Progress getWon(const Field& f)
 		{
 			if (f.ppField[0][x] == f.ai)
 			{
-				return WON_AI;
+				return Progress::WON_AI;
 			}
 			else if (f.ppField[0][x] == f.human)
 			{
-				return WON_HUMAN;
+				return Progress::WON_HUMAN;
 			}
 		}
 	}
@@ -269,11 +272,11 @@ Progress getWon(const Field& f)
 	{
 		if (f.ppField[0][0] == f.ai)
 		{
-			return WON_AI;
+			return Progress::WON_AI;
 		}
 		else if (f.ppField[0][0] == f.human)
 		{
-			return WON_HUMAN;
+			return Progress::WON_HUMAN;
 		}
 	}
 
@@ -281,11 +284,11 @@ Progress getWon(const Field& f)
 	{
 		if (f.ppField[1][1] == f.ai)
 		{
-			return WON_AI;
+			return Progress::WON_AI;
 		}
 		else if (f.ppField[1][1] == f.human)
 		{
-			return WON_HUMAN;
+			return Progress::WON_HUMAN;
 		}
 	}
 
@@ -294,7 +297,7 @@ Progress getWon(const Field& f)
 	{
 		for (size_t x = 0; x < f.SIZE; x++)
 		{
-			if (f.ppField[y][x] == EMPTY)
+			if (f.ppField[y][x] == Cell::EMPTY)
 			{
 				draw = false;
 				break;
@@ -308,25 +311,25 @@ Progress getWon(const Field& f)
 
 	if (draw)
 	{
-		return DRAW;
+		return Progress::DRAW;
 	}
 
-	return IN_PROGRESS;
+	return Progress::IN_PROGRESS;
 }
 
 void congrats(Progress progress)
 {
-	if (progress == WON_HUMAN)
+	if (progress == Progress::WON_HUMAN)
 	{
 		cout << "YOU WIN! :)" << endl
 			<< "HUMAN WIN" << endl;
 	}
-	else if (progress == WON_AI)
+	else if (progress == Progress::WON_AI)
 	{
 		cout << "YOU LOSE... :(" << endl
 			<< "AI WIN" << endl;
 	}
-	else if (progress == DRAW)
+	else if (progress == Progress::DRAW)
 	{
 		cout << "DRAW :/" << endl;
 	}
@@ -357,7 +360,7 @@ int main()
 
 		f.progress = getWon(f);
 
-	} while (f.progress == IN_PROGRESS);
+	} while (f.progress == Progress::IN_PROGRESS);
 
 	congrats(f.progress);
 
