@@ -4,6 +4,6 @@ void inline clearScr();
 
 int main()
 {
-	TicTacToe();
+	TicTacToeGame();
 	return 0;
 }

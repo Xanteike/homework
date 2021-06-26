@@ -9,11 +9,19 @@
 
 using namespace std;
 
-	const enum class Cell : char
+class TicTacToe 
+{
+private:
+	enum class Cell;
+	enum class Progress;
+	struct Coord;
+	struct Field;
+};
+	enum class Cell : char
 	{
 		CROSS = 'X',
 		ZERO = 'O',
-		EMPTY = '-'
+		EMPTY = ' '
 	};
 
 	struct Coord
@@ -22,7 +30,7 @@ using namespace std;
 		size_t y;
 	};
 
-	const enum class Progress : int
+	enum class Progress : int
 	{
 		IN_PROGRESS,
 		WON_HUMAN,
@@ -51,4 +59,4 @@ using namespace std;
 	Coord getHumanCoord(Field& f);
 	Coord getAICoord(Field& f);
 	void congrats(Progress progress);
-	void TicTacToe();
+	void TicTacToeGame();

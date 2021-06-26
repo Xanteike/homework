@@ -303,7 +303,7 @@ void congrats(Progress progress)
 
 }
 
-void TicTacToe()
+void TicTacToeGame()
 {
 	Field f;
 	initField(f);
