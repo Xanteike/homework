@@ -9,16 +9,23 @@ using namespace std;
 //  Вызвать эту функцию из main.
 //
 
-bool print(double arr[], double size)
+bool printArray(double arr[], double size)
 {
 	for (size_t i = 0; i < size; i++)
 	{
 		cout << arr[i] << " ";
 	}
 	cout << endl;
-	return true;
 }
-
+void Task1()
+{
+	const double mysize = 5;
+	double myarr[] = { 3.14, 159.265, 35.89, 79.32, 38.46 };
+	if (printArray(myarr, mysize))
+	{
+		cout << "Array was successfuly printed" << endl;
+	}
+}
 // -------------------------------------------------Task2-----------------------------------------------------------
 //
 // Задать целочисленный массив, состоящий из элементов 0
@@ -82,8 +89,8 @@ void Task3()
 const int size_array = 5;
 void Task4()
 {
-	int temp1[size_array] { 1, 2, 3, 4, 5};
-	int temp2[size_array]; 
+	int temp1[size_array]{ 1, 2, 3, 4, 5 };
+	int temp2[size_array];
 	int a = 0;
 	int write;
 	cout << "Please enter number to shift: ";
@@ -91,7 +98,7 @@ void Task4()
 	if (write > size_array)
 	{
 		cout << "ERROR, please enter the shift element." << endl;
-		return Task4_v2();
+		return Task4();
 	}
 	if (write >= 0)
 	{
@@ -142,32 +149,8 @@ void Task4()
 //
 // Тут тоже не ососбо понял, вроде сравнивает :)
 
-const int size_5_array = 2;
-void Task5_v1()
-{
-	int left_array[size_5_array];
-	int right_array[size_5_array];
-	cout << "Enter the array values" << endl;
-	for (int i = 0; i < size_5_array; i++)
-	{
-		cin >> left_array[i];
-		cin >> right_array[i];
-		if (left_array[i] > right_array[i] || left_array[i] < right_array[i])
-		{
-			cout << "false" << endl;
-			break;
-		}
-		if (left_array[i] == right_array[i])
-		{
-			cout << "true" << endl;
-			break;
-		}
-	}
 
-}
-
-/*
-bool Task5_v2(int array[])
+bool Task5(int array[])
 {
 	int length = *array;
 	int leftSum;
@@ -193,19 +176,14 @@ bool Task5_v2(int array[])
 	}
 	return false;
 }
-*/
+
 
 int main()
 {
-	Task2();
-	Task3();
-	Task4();
-	Task5_v1();
-	const double mysize = 5;
-	double myarr[] = { 3.14, 265.159, 35.89, 79.32, 38.46 };
-	if (print(myarr, mysize))
-	{
-		cout << "Array was successfuly printed" << endl;
-	}
+//	Task1();
+//	Task2();
+//	Task3();
+//	Task4();
+//	Task5();
 	return 0;
 }
