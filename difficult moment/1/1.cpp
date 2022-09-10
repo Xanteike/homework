@@ -249,5 +249,4 @@ int main()
 	cout << book;
 
 	return 0;
-
-
+}
