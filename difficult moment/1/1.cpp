@@ -1,3 +1,5 @@
+#include "1.h"
+
 struct Person
 {
 	string firstName;
@@ -15,11 +17,11 @@ bool operator==(const Person& a, const Person& b)
 	return std::tie(a.firstName, a.lastName, a.middleName) == std::tie(b.firstName, b.lastName, b.middleName);
 }
 
-ostream& operator<<(ostream&out, const Person& a)
+ostream& operator<<(ostream& out, const Person& a)
 {
 	out << setw(15) << a.firstName << setw(12) << a.lastName;
 
-	if(a.middleName.has_value())
+	if (a.middleName.has_value())
 	{
 		out << setw(15) << a.middleName.has_value();
 	}
@@ -39,7 +41,7 @@ struct PhoneNumber
 	optional <int> additionalNumber;
 };
 
-bool operator<(const PhoneNumber&a, const PhoneNumber&b)
+bool operator<(const PhoneNumber& a, const PhoneNumber& b)
 {
 	return std::tie(a.countryCode, a.cityCode, a.number, a.additionalNumber) < std::tie(b.countryCode, b.cityCode, b.number, b.additionalNumber);
 }
@@ -200,52 +202,52 @@ public:
 		}
 	}
 
-	int main()
-	{
-		ifstream file("PhoneBook.txt");
-		PhoneBook book(file);
-		cout << book;
-
-		cout << "------SortByPhone-------" << endl;
-		book.SortByPhone();
-		cout << book;
-
-		cout << "------SortByName--------" << endl;
-		book.SortByName();
-		cout << book;
-
-		cout << "-----GetPhoneNumber-----" << endl;
-		// лямбда функция, которая принимает фамилию и выводит номер телефона этого     человека, либо строку с ошибкой
-		auto print_phone_number = [&book](const string& surname)
-		{
-			cout << surname << "\t";
-			auto answer = book.getPhoneNumber(surname);
-			if (get<0>(answer).empty())
-			{
-				for (size_t i = 0; i < get<1>(answer).size(); ++i)
-				{
-					cout << get<1>(answer)[i];
-				}
-			}
-			else
-			{
-				cout << get<0>(answer);
-			}
-			cout << endl;
-		};
-
-		// вызовы лямбды
-		print_phone_number("Ivanov");
-		print_phone_number("Petrov");
-
-		cout << "----ChangePhoneNumber----" << endl;
-		book.changePhoneNumber(Person{ "Kotov", "Vasilii", "Eliseevich" }, PhoneNumber{ 7, 123, "15344458", nullopt });
-		book.changePhoneNumber(Person{ "Mironova", "Margarita", "Vladimirovna" }, PhoneNumber{ 16, 465, "9155448", 13 });
-		cout << book;
-
-		return 0;
-	}
 
 };
+
+int main()
+{
+	ifstream file("PhoneBook.txt");
+	PhoneBook book(file);
+	cout << book;
+
+	cout << "------SortByPhone-------" << endl;
+	book.SortByPhone();
+	cout << book;
+
+	cout << "------SortByName--------" << endl;
+	book.SortByName();
+	cout << book;
+
+	cout << "-----GetPhoneNumber-----" << endl;
+	// лямбда функция, которая принимает фамилию и выводит номер телефона этого     человека, либо строку с ошибкой
+	auto print_phone_number = [&book](const string& surname)
+	{
+		cout << surname << "\t";
+		auto answer = book.getPhoneNumber(surname);
+		if (get<0>(answer).empty())
+		{
+			for (size_t i = 0; i < get<1>(answer).size(); ++i)
+			{
+				cout << get<1>(answer)[i];
+			}
+		}
+		else
+		{
+			cout << get<0>(answer);
+		}
+		cout << endl;
+	};
+
+	// вызовы лямбды
+	print_phone_number("Ivanov");
+	print_phone_number("Petrov");
+
+	cout << "----ChangePhoneNumber----" << endl;
+	book.changePhoneNumber(Person{ "Kotov", "Vasilii", "Eliseevich" }, PhoneNumber{ 7, 123, "15344458", nullopt });
+	book.changePhoneNumber(Person{ "Mironova", "Margarita", "Vladimirovna" }, PhoneNumber{ 16, 465, "9155448", 13 });
+	cout << book;
+
+	return 0;
 
 
