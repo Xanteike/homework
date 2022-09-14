@@ -9,7 +9,7 @@ public:
 };
 
 template<typename T>
-void Swap(T *a, T *b)
+void Swap(T* a, T* b)
 {
 	T tmp = *a;
 	*a = *b;
@@ -30,15 +30,27 @@ void PrintSwap()
 }
 
 template<typename T>
-void SortPointer(vector<T> &vec)
+void SortPoint(vector<T*>& vec)
 {
-	sort(vec.begin(), v.end(), [](const auto& vec1, const auto& vec2))
+	sort(vec.begin(), vec.end(), [](const auto& vec1, const auto& vec2)
 	{
-		return *vec1 < *vec2
-	}
+			return *vec1 < *vec2;
+	});
+
 }
-
-
+ 
+void task2()
+{
+	int abc = 1;
+	vector <int*> vec;
+	for (int i = 0; i < abc; ++i)
+	{
+		int* a = new int;
+		*a = rand() % 10;
+		vec.push_back(a);
+	}
+	SortPoint(vec);
+}
 
 int main()
 {
