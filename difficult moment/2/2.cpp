@@ -1,4 +1,4 @@
-﻿#include "1.h"
+#include "1.h"
 #include "2.h"
 
 class Timer
@@ -38,7 +38,7 @@ void SortPoint(vector<T*>& vec)
 	});
 
 }
- 
+
 void task2()
 {
 	int abc = 1;
