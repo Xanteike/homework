@@ -4,26 +4,26 @@
 class Timer
 {
 private:
-      using clock_t = std::chrono::high_resolution_clock;
-      using second_t = std::chrono::duration<double, std::ratio<1> >;
+      using clock_t = chrono::high_resolution_clock;
+      using second_t = chrono::duration<double, ratio<1> >;
  
-      std::string m_name;
-      std::chrono::time_point<clock_t> m_beg;
+      string m_name;
+      chrono::time_point<clock_t> m_beg;
       double elapsed() const
       {
-            return std::chrono::duration_cast<second_t>(clock_t::now() -m_beg).count();
+            return chrono::duration_cast<second_t>(clock_t::now() -m_beg).count();
       }
  
 public:
       Timer() : m_beg(clock_t::now()) { }
-      Timer(std::string name) : m_name(name), m_beg(clock_t::now()) { }
+      Timer(string name) : m_name(name), m_beg(clock_t::now()) { }
  
-      void start(std::string name) {
+      void start(string name) {
             m_name = name;
             m_beg = clock_t::now();
       }
       void print() const {
-            std::cout << m_name << ":\t" << elapsed() * 1000 << " ms" << '\n';
+            cout << m_name << ":\t" << elapsed() * 1000 << " ms" << '\n';
       }
 };
 
@@ -39,13 +39,13 @@ void Swap(T* a, T* b)
 void PrintSwap()
 {
 	int x, y;
-	std::cout << "Enter x = ";
-	std::cin >> x;
-	std::cout << "Enter y = ";
-	std::cin >> y;
-	std::cout << std::endl << "Swap x and y:" << std::endl;
+	cout << "Enter x = ";
+	cin >> x;
+	cout << "Enter y = ";
+	cin >> y;
+	cout << endl << "Swap x and y:" << endl;
 	Swap(&x, &y);
-	std::cout << "x = " << x << std::endl << "y = " << y << std::endl;
+	cout << "x = " << x << endl << "y = " << y << endl;
 }
 
 template<typename T>
@@ -71,73 +71,55 @@ void task2()
 	SortPoint(vec);
 }
 
-const std::string VOWEL_LETTERS = "аАеЕёЁиИоОуУэЭыЫюЮяЯ";
+const string VOWEL_LETTERS = "аАеЕёЁиИоОуУэЭыЫюЮяЯ";
 
-void CountIfAndCount(const std::string& s)
+void CountIfAndCount(const string& s)
 {
-    Timer timer("------ Count_if and count ------");
-
-    std::cout << std::endl << "Гласных букв: " <<
-        std::count_if(s.begin(), s.end(), [](char currentChar) -> bool
+    cout << endl << "Гласных букв: " <<
+        count_if(s.begin(), s.end(), [](char currentChar) -> bool
         {
-            return std::count(VOWEL_LETTERS.begin(), VOWEL_LETTERS.end(), currentChar);
-        }) << std::endl;
-
-    timer.print();
+            return count(VOWEL_LETTERS.begin(), VOWEL_LETTERS.end(), currentChar);
+        }) << endl;
 }
 
-void CountIfAndFind(const std::string& s)
+void CountIfAndFind(const string& s)
 {
-    Timer timer("------ Count_if and find ------");
 
-    std::cout << std::endl << "Гласных букв: " <<
-        std::count_if(s.begin(), s.end(), [](char currentChar) -> bool
+    cout << endl << "Гласных букв: " <<
+        count_if(s.begin(), s.end(), [](char currentChar) -> bool
         {
-            return std::find(VOWEL_LETTERS.begin(), VOWEL_LETTERS.end(), currentChar) != VOWEL_LETTERS.end();
-        }) << std::endl;
-
-    timer.print();
+            return find(VOWEL_LETTERS.begin(), VOWEL_LETTERS.end(), currentChar) != VOWEL_LETTERS.end();
+        }) << endl;
 }
 
-void CountIfAndFor(const std::string& s)
+void CountIfAndFor(const string& s)
 {
-    Timer timer("------ Count_if and for ------");
-
-    std::cout << std::endl << "Гласных букв: " <<
-        std::count_if(s.begin(), s.end(), [](char currentChar) -> bool
+	 cout << endl << "Гласных букв: " <<
+        count_if(s.begin(), s.end(), [](char currentChar) -> bool
         {
             for(auto i: VOWEL_LETTERS) {
                 if(i == currentChar)
                     return true;
             }
             return false;
-        }) << std::endl;
-
-    timer.print();
+        }) << endl;
 }
 
-void ForAndFind(const std::string& s)
-{
-    Timer timer("------ For and find ------");
 
-    std::cout << std::endl << "Гласных букв: ";
+void ForAndFind(const string& s)
+{
+ cout << endl << "Гласных букв: ";
 
     int cnt = 0;
     for(auto i: s) {
-        if(std::find(VOWEL_LETTERS.begin(), VOWEL_LETTERS.end(), i) != VOWEL_LETTERS.end())
+        if(find(VOWEL_LETTERS.begin(), VOWEL_LETTERS.end(), i) != VOWEL_LETTERS.end())
             cnt++;
     }
-
-    std::cout << cnt << std::endl;
-
-    timer.print();
 }
 
-void ForAndFor(const std::string& s)
+void ForAndFor(const string& s)
 {
-    Timer timer("------ For and for ------");
-
-    std::cout << std::endl << "Гласных букв: ";
+ cout << endl << "Гласных букв: ";
 
     int cnt = 0;
     for(auto tc: s) {
@@ -148,10 +130,6 @@ void ForAndFor(const std::string& s)
             }
         }
     }
-
-    std::cout << cnt << std::endl;
-
-    timer.print();
 }
 
 int main()
