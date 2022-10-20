@@ -3,12 +3,16 @@
 #pragma once
 
 #include <iostream>
+#include <cmath>
+#include <cstdint>
+#include <tuple>
+#include <map>
+#include <utility>
+#include <fstream>
 #include <string>
 #include <optional>
-#include <vector>
-#include <fstream>
 #include <sstream>
-#include <algorithm>
-#include <iomanip>
+#include <regex>
+#include <chrono>
 
 using namespace std;
