@@ -1,0 +1,22 @@
+syntax="proto3";
+
+package Lesson7;
+message FullName
+{
+    string surname = 1;
+    string name = 2;
+    optional string patronymic =3;
+}
+
+message Student
+{
+    FullName fullname = 1;
+    repeated int32 scores = 2 [packed=true];
+    double averageScore = 3;
+}
+
+message StudentsGroup
+{
+    repeated Student students = 1;
+}
+
